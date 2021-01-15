@@ -10,10 +10,33 @@ class CategoryScreen extends StatefulWidget {
 
 class _CategoryScreenState extends State<CategoryScreen> {
   bool isSearching = false;
-  List data = [];
-  List filteredData = [];
-  void _filterData(value) {
-    print(value);
+  List<String> filteredData = [];
+  List<String> categories = [
+    'Hotels',
+    'Sports',
+    'Restaurants',
+    'Schools',
+    'Parking Space',
+    'Supermarket',
+    'Logistics',
+    'Hospitals'
+  ];
+  void _filterData(String value) {
+    setState(() {
+      filteredData = categories
+          .where(
+              (element) => element.toLowerCase().contains(value.toLowerCase()))
+          .toList();
+      print(filteredData);
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    setState(() {
+      filteredData = categories;
+    });
   }
 
   @override
@@ -57,7 +80,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
             : Text('Category'),
         centerTitle: true,
       ),
-      body: Body(),
+      body: Body(data: filteredData),
     );
   }
 }
